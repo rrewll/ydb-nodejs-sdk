@@ -14,6 +14,8 @@ export async function main(runner: Runner) {
     const endpointParam = args.endpoint as string;
     const dbParam = args.db as string;
     const connectionStringParam = args.connectionString as string;
+    
+    some error;
 
     let endpoint;
     let db;
