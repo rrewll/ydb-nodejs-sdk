@@ -1,4 +1,5 @@
-import {AnonymousAuthService, Driver} from '..';
+import Driver from '../driver';
+import {AnonymousAuthService} from '../credentials';
 
 describe('Connection', () => {
     it('Test connection', async () => {
