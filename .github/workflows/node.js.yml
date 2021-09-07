@@ -9,12 +9,16 @@ on:
   pull_request:
     branches: [ master ]
 
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
     container:
       image: node:14.15.0-alpine3.12
+
+    services:
+      ydb:
+        image: cr.yandex/yc/yandex-docker-local-ydb:latest
 
     strategy:
       matrix:
@@ -33,5 +37,4 @@ jobs:
     - run: npm run build:bundle
     - run: npm run build:lib
     - run: npm run build:examples
-    - uses: docker://cr.yandex/yc/yandex-docker-local-ydb:latest
     - run: npm run test
