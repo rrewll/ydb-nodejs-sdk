@@ -31,3 +31,4 @@ jobs:
     - run: npm run build:bundle
     - run: npm run build:lib
     - run: npm run build:examples
+    - run: npm run test
