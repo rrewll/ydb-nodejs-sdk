@@ -28,7 +28,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - uses: cr.yandex/yc/yandex-docker-local-ydb:latest
+    - uses: docker://cr.yandex/yc/yandex-docker-local-ydb:latest
     - run: npm ci
     - run: npm link && cd examples && npm ci && npm link ydb-sdk && cd ..
     - run: npm run build:bundle
