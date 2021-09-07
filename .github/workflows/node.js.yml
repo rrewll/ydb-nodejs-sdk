@@ -34,6 +34,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: /ydb -e localhost:2135 -d /local table query execute -q 'select 1;'
     - run: npm ci
     - run: npm link && cd examples && npm ci && npm link ydb-sdk && cd ..
     - run: npm run build:bundle
