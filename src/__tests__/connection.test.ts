@@ -1,6 +1,6 @@
+import {GenericContainer, StartedTestContainer} from 'testcontainers';
 import Driver from '../driver';
 import {AnonymousAuthService} from '../credentials';
-import {GenericContainer, StartedTestContainer} from "testcontainers";
 
 describe('Connection', () => {
     let startedContainer: StartedTestContainer;
@@ -13,12 +13,14 @@ describe('Connection', () => {
 
     afterAll(async () => {
         await startedContainer.stop();
-    })
+    });
 
     it('Test connection', async () => {
-        console.log('host', startedContainer.getHost());
-        console.log('port', startedContainer.getMappedPort(2135));
-        const driver = new Driver('grpc://' + startedContainer.getHost() + ':2135', 'local', new AnonymousAuthService());
+        const host = startedContainer.getHost();
+        const mappedPort = startedContainer.getMappedPort(2135);
+        const entryPoint = `grpc://${host}:${mappedPort}`;
+        console.log('entryPoint', entryPoint);
+        const driver = new Driver(entryPoint, 'local', new AnonymousAuthService());
         await driver.ready(10000);
         await driver.tableClient.withSession(async (session) => {
             await session.executeQuery('SELECT 1');
