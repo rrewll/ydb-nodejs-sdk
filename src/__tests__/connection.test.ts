@@ -2,7 +2,7 @@ import Driver from '../driver';
 import {AnonymousAuthService} from '../credentials';
 
 describe('Connection', () => {
-    it.skip('Test connection', async () => {
+    it('Test connection', async () => {
         const driver = new Driver('grpc://localhost:2135', 'local', new AnonymousAuthService());
         await driver.ready(10000);
         await driver.tableClient.withSession(async (session) => {

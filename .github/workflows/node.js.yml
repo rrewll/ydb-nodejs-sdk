@@ -33,4 +33,5 @@ jobs:
     - run: npm run build:bundle
     - run: npm run build:lib
     - run: npm run build:examples
+    - uses: docker://cr.yandex/yc/yandex-docker-local-ydb:latest
     - run: npm run test
