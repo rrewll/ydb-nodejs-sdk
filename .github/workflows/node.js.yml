@@ -33,5 +33,4 @@ jobs:
     - run: npm run build:bundle
     - run: npm run build:lib
     - run: npm run build:examples
-    - run: docker run -d --rm --name ydb-local -h localhost -p 2135:2135 -p 8765:8765 -e YDB_LOCAL_SURVIVE_RESTART=true cr.yandex/yc/yandex-docker-local-ydb:latest
     - run: npm run test
