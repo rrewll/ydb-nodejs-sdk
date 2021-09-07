@@ -16,12 +16,6 @@ jobs:
     container:
       image: node:14.15.0-alpine3.12
 
-    services:
-      ydb:
-        image: cr.yandex/yc/yandex-docker-local-ydb:latest
-        ports:
-          - 2135:2135
-
     strategy:
       matrix:
         node-version: [12.x]
@@ -34,7 +28,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: /ydb -e localhost:2135 -d /local table query execute -q 'select 1;'
     - run: npm ci
     - run: npm link && cd examples && npm ci && npm link ydb-sdk && cd ..
     - run: npm run build:bundle

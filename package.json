@@ -42,6 +42,7 @@
     "pino": "^6.3.0",
     "protobufjs": "^6.8.8",
     "reflect-metadata": "^0.1.13",
+    "testcontainers": "^7.20.2",
     "ts-jest": "^27.0.5",
     "yandex-cloud": "^1.4.2"
   },
