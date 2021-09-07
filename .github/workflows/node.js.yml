@@ -19,6 +19,8 @@ jobs:
     services:
       ydb:
         image: cr.yandex/yc/yandex-docker-local-ydb:latest
+        ports:
+          - 2135:2135
 
     strategy:
       matrix:
