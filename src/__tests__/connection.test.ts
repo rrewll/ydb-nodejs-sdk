@@ -16,6 +16,8 @@ describe('Connection', () => {
     })
 
     it('Test connection', async () => {
+        console.log('host', startedContainer.getHost());
+        console.log('port', startedContainer.getMappedPort(2135));
         const driver = new Driver('grpc://' + startedContainer.getHost() + ':2135', 'local', new AnonymousAuthService());
         await driver.ready(10000);
         await driver.tableClient.withSession(async (session) => {
