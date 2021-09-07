@@ -13,6 +13,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    container:
+      image: node:14.15.0-alpine3.12
 
     strategy:
       matrix:
@@ -26,10 +28,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - uses: docker://cr.yandex/yc/yandex-docker-local-ydb:latest
     - run: npm ci
     - run: npm link && cd examples && npm ci && npm link ydb-sdk && cd ..
     - run: npm run build:bundle
     - run: npm run build:lib
     - run: npm run build:examples
+    - run: docker run -d --rm --name ydb-local -h localhost -p 2135:2135 -p 8765:8765 -e YDB_LOCAL_SURVIVE_RESTART=true cr.yandex/yc/yandex-docker-local-ydb:latest
     - run: npm run test
