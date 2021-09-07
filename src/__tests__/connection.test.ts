@@ -2,8 +2,6 @@ import Driver from '../driver';
 import {AnonymousAuthService} from '../credentials';
 import {GenericContainer, StartedTestContainer} from "testcontainers";
 
-
-
 describe('Connection', () => {
     let startedContainer: StartedTestContainer;
 
