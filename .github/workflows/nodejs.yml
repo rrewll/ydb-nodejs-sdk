@@ -1,6 +1,3 @@
-# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Node.js CI
 
 on:
@@ -9,23 +6,15 @@ on:
   pull_request:
     branches: [ master ]
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
       image: node:14.15.0-alpine3.12
 
-    services:
-      ydb:
-        image: cr.yandex/yc/yandex-docker-local-ydb:latest
-        ports:
-          - 2135:2135
-
     strategy:
       matrix:
-        node-version: [12.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [10.x, 12.x, 14.x, 16.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -34,9 +23,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Install dependencies
     - run: npm ci
     - run: npm link && cd examples && npm ci && npm link ydb-sdk && cd ..
+    - name: Run builds
     - run: npm run build:bundle
     - run: npm run build:lib
     - run: npm run build:examples
-    - run: npm run test
